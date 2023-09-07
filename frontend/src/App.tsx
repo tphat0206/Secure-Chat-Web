@@ -1,70 +1,57 @@
-import {useEffect, useState} from "react";
-import Pusher from "pusher-js";
-interface Message{
-    username: string,
-    message: string,
+import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import client from './client/axios'
+import APIS from './constants/api'
+import LOCAL_STORAGE_KEYS from './constants/local_storage'
+import { Account } from './constants/types'
+import { useAppDispatch, useAppSelector } from './redux/store'
+import { setToken, setAccount, removeToken } from './redux/user/slice'
+import { HomePage, NotFoundPage, SignInPage, SignUpPage } from './pages'
+
+function AuthenticatedApp() {
+	return (
+		<Routes>
+			<Route path="/" element={<HomePage />} />
+			<Route path="*" element={<NotFoundPage />} />
+		</Routes>
+	)
 }
+
+function UnAuthenticatedApp() {
+	return (
+		<Routes>
+			<Route path="/" element={<HomePage />} />
+			<Route path="signin" element={<SignInPage />} />
+			<Route path="signup" element={<SignUpPage />} />
+			<Route path="*" element={<NotFoundPage />} />
+		</Routes>
+	)
+}
+
 function App() {
-    const [username, setUsername] = useState('username');
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [message, setMessage] = useState('');
+	const dispatch = useAppDispatch()
+	const user = useAppSelector((state) => state.user)
+	const token = localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN_KEY)
 
-    useEffect(() => {
-        Pusher.logToConsole = true;
+	useEffect(() => {
+		if (user.account || !token) return
+		client
+			.get<Account>(APIS.GET_ACCOUNT, {
+				headers: {
+					Authorization: `Token ${token}`,
+				},
+			})
+			.then((response:any) => {
+				dispatch(setToken(token))
+				dispatch(setAccount(response.data))
+				client.defaults.headers.common.Authorization = `Token ${token}`
+			})
+			.catch(() => {
+				dispatch(removeToken())
+			})
+	}, [user.token])
 
-        const pusher = new Pusher('1b312e08ed8646072936', {
-            cluster: 'ap1'
-        });
-        console.log(messages)
-        const channel = pusher.subscribe('chat');
-        channel.bind('message', function (data:Message) {
-            setMessages(prevMessages => [...prevMessages, data]);
-        });
-    }, []);
-
-    const submit = async (e:any) => {
-        e.preventDefault();
-
-        await fetch('http://0.0.0.0:8000/chat/messages', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                username,
-                message
-            })
-        });
-
-        setMessage('');
-    }
-
-    return (
-        <div className="container">
-            <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
-                <div
-                    className="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                    <input className="fs-5 fw-semibold" value={username}
-                           onChange={e => setUsername(e.target.value)}/>
-                </div>
-                <div className="list-group list-group-flush border-bottom scrollarea">
-                    {messages.map((message,index) => {
-                        return (
-                            <div key={index} className="list-group-item list-group-item-action py-3 lh-tight">
-                                <div className="d-flex w-100 align-items-center justify-content-between">
-                                    <strong className="mb-1">{message.username}</strong>
-                                </div>
-                                <div className="col-10 mb-1 small">{message.message}</div>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-            <form onSubmit={e => submit(e)}>
-                <input className="form-control" placeholder="Write a message" value={message}
-                       onChange={e => setMessage(e.target.value)}
-                />
-            </form>
-        </div>
-    );
+	return user.account ? <AuthenticatedApp /> : <UnAuthenticatedApp />
 }
 
-export default App;
+export default App
