@@ -1,11 +1,12 @@
-import { Dropdown, DropdownButton, Nav } from 'react-bootstrap'
+import { Button, Nav } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
 import LOCAL_STORAGE_KEYS from '../../constants/local_storage'
 import { removeAccount, removeToken } from '../../redux/user/slice'
+import Colors from '../../constants/color'
 let linkStyle = {
 	display: 'flex',
 	alignItems: 'center',
-	color: 'white',
+	color: Colors.NavyBlue,
 }
 export default function isLogin({ account, dispatch }: any) {
 	const navigate = useNavigate()
@@ -15,23 +16,25 @@ export default function isLogin({ account, dispatch }: any) {
 				{`
             .btn-login {
 			height:3em;
-            color: white;
+            color: ${Colors.BlueGreen};
+			background-color: ${Colors.DarkBlue};
+			border:none;
 			text-align:left;
             }
             .btn-login:hover {
-                color: yellow;
+                color: ${Colors.BabyBlue};
+				background-color: ${Colors.DarkBlue};
             }
+			.btn-login:focus{
+				color: ${Colors.BabyBlue};
+				background-color: ${Colors.DarkBlue};
+			}
     `}
 			</style>
 		<Nav>
 			{account ? (
-				<DropdownButton
-					align={{ lg: 'end' }}
-					title="Menu"
-					id="dropdown-menu-align-responsive-1"
-					variant="login"
-				>
-					<Dropdown.Item
+					<Button
+						className='btn-login'
 						onClick={() => {
 							localStorage.removeItem(
 								LOCAL_STORAGE_KEYS.TOKEN_KEY
@@ -41,11 +44,8 @@ export default function isLogin({ account, dispatch }: any) {
 							navigate('/')
 						}}
 					>
-						Log out
-					</Dropdown.Item>
-					<div className="dropdown-divider"></div>
-					<Dropdown.Item onClick={() => navigate(`/user/profile`)}> Profile </Dropdown.Item>
-				</DropdownButton>
+						Log Out
+					</Button>
 			) : (
 				<>
 					<Nav.Link
@@ -54,7 +54,7 @@ export default function isLogin({ account, dispatch }: any) {
 						style={linkStyle}
 						className="d-flex align-items-center"
 					>
-						Login
+						Sign In
 					</Nav.Link>
 					<Nav.Link
 						to="/signup"
@@ -62,7 +62,7 @@ export default function isLogin({ account, dispatch }: any) {
 						style={linkStyle}
 						className="d-flex align-items-center"
 					>
-						Sign up
+						Sign Up
 					</Nav.Link>
 				</>
 			)}

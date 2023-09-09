@@ -6,12 +6,17 @@ import LOCAL_STORAGE_KEYS from './constants/local_storage'
 import { Account } from './constants/types'
 import { useAppDispatch, useAppSelector } from './redux/store'
 import { setToken, setAccount, removeToken } from './redux/user/slice'
-import { HomePage, NotFoundPage, SignInPage, SignUpPage } from './pages'
+import { ConversationPage, HomePage, NotFoundPage, SignInPage, SignUpPage } from './pages'
+import UserPage from './pages/UserPage'
+import BoxChat from './components/conversation/BoxChat'
 
 function AuthenticatedApp() {
 	return (
 		<Routes>
 			<Route path="/" element={<HomePage />} />
+			<Route element={<UserPage/>}>
+				<Route path="/conversation/:conversation_id" element={<BoxChat/>} />
+			</Route>
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
 	)

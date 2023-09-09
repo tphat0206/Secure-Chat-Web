@@ -1,3 +1,4 @@
+import ConversationPage from './ConversationPage'
 import HomePage from './HomePage'
 import NotFoundPage from './NotFoundPage'
 
@@ -9,4 +10,5 @@ export {
 	NotFoundPage,
 	SignInPage,
 	SignUpPage,
+	ConversationPage,
 }

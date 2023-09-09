@@ -6,7 +6,9 @@ export default function HomePage() {
 		<div className="d-flex flex-column justify-content-center align-items-center vh-100">
 			<Navbar />
 			<div style={{ flex: 1 }}>
-                Home Page
+                <h1>Home Page</h1>
+				<a href="/conversation">Conversation Page</a>
+
             </div>
 			<Footer />
 		</div>

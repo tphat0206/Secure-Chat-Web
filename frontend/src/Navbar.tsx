@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container'
 import { Col, Navbar as NB, Row } from 'react-bootstrap'
 import { useAppDispatch, useAppSelector } from './redux/store'
 import Login from './components/navbar/Login'
+import Colors from './constants/color'
 
 export default function Navbar() {
 	const account = useAppSelector((state) => state.user.account)
@@ -12,7 +13,7 @@ export default function Navbar() {
 		<NB
 			className="navbar w-100"
 			style={{
-				backgroundColor: '#002333',
+				backgroundColor: Colors.DarkBlue,
 				height :80,
 			}}
 		>
@@ -20,7 +21,7 @@ export default function Navbar() {
 				<Row className='h-100' style={{ width: '100%' }}>
 					<Col className='h-100' style={{ display: 'flex', alignItems: 'center' }}>
 						<NB.Brand className='h-100' style={{ color: 'white' }} href="/">
-							<img src='logo2.svg' className='h-100'></img>
+							<img src='/public/logo2.svg' className='h-100'></img>
 						</NB.Brand>
 					</Col>
 					<Col
