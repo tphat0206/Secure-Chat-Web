@@ -6,7 +6,7 @@ import Colors from '../../constants/color'
 let linkStyle = {
 	display: 'flex',
 	alignItems: 'center',
-	color: Colors.NavyBlue,
+	color: Colors.BlurBabyBlue,
 }
 export default function isLogin({ account, dispatch }: any) {
 	const navigate = useNavigate()
@@ -32,6 +32,7 @@ export default function isLogin({ account, dispatch }: any) {
     `}
 			</style>
 		<Nav>
+			{account ? (<Nav.Link href="#" style={linkStyle}>{account.username}</Nav.Link>) : (<></>)}
 			{account ? (
 					<Button
 						className='btn-login'

@@ -39,3 +39,8 @@ export interface Course {
 	cover_image: string
 	description: string
 }
+
+export interface Group {
+	uuid: string,
+	name: string,
+}
