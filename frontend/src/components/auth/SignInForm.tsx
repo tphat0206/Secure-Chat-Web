@@ -51,40 +51,40 @@ export default function SignInForm() {
   };
 
   return (
-      <Container className="d-flex flex-column mt-5 mb-5 justify-content-center align-items-center">
-        <Form
-          onFinish={onFinish}
-          name="basic"
-          initialValues={{ remember: true }}
-          autoComplete="off"
-          size="large"
-          style={{ color: "#fff" }}
-        >
-          <Form.Item name="username">
-            <Input placeholder="Username" />
-          </Form.Item>
+    <Container className="d-flex flex-column mt-5 mb-5 justify-content-center align-items-center">
+      <Form
+        onFinish={onFinish}
+        name="basic"
+        initialValues={{ remember: true }}
+        autoComplete="off"
+        size="large"
+        style={{ color: "#fff" }}
+      >
+        <Form.Item name="username">
+          <Input placeholder="Username" />
+        </Form.Item>
 
-          <Form.Item name="password">
-            <Input.Password placeholder="Password" />
-          </Form.Item>
-          <Form.Item
-            validateStatus={inputError.detail ? "error" : ""}
-            hasFeedback
-            help={inputError.detail}
-            style={{
-              marginBottom: 20,
-              textAlign: "center",
-            }}
+        <Form.Item name="password">
+          <Input.Password placeholder="Password" />
+        </Form.Item>
+        <Form.Item
+          validateStatus={inputError.detail ? "error" : ""}
+          hasFeedback
+          help={inputError.detail}
+          style={{
+            marginBottom: 20,
+            textAlign: "center",
+          }}
+        >
+          <Button
+            className="border-0 w-100"
+            htmlType="submit"
+            style={{ backgroundColor: Colors.BlueGreen }}
           >
-            <Button
-              className="border-0 w-100"
-			  htmlType="submit"
-              style={{ backgroundColor: Colors.BlueGreen }}
-            >
-              SIGN IN
-            </Button>
-          </Form.Item>
-        </Form>
-      </Container>
+            SIGN IN
+          </Button>
+        </Form.Item>
+      </Form>
+    </Container>
   );
 }

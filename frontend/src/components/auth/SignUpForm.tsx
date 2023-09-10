@@ -43,7 +43,7 @@ export default function SignUpForm() {
   };
 
   return (
-	<Container className="d-flex flex-column mt-5 mb-5 justify-content-center align-items-center">
+    <Container className="d-flex flex-column mt-5 mb-5 justify-content-center align-items-center">
       <Form
         onFinish={onFinish}
         name="basic"
@@ -135,7 +135,7 @@ export default function SignUpForm() {
         >
           <Button
             className="border-0 w-100"
-			htmlType="submit"
+            htmlType="submit"
             style={{ backgroundColor: Colors.BlueGreen }}
           >
             SIGN UP
