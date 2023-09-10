@@ -41,6 +41,9 @@ export interface Course {
 }
 
 export interface Group {
-	uuid: string,
+	conversation_uuid: string,
 	name: string,
+	from_member_name: string,
+	is_message_owner: boolean,
+	created_at: string,
 }

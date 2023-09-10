@@ -9,7 +9,7 @@ export default function UserPage() {
 	const user_uuid = account?.uuid
 	return (
 		<div 
-			className='mh-100 d-flex flex-column'
+			className='vh-100 d-flex flex-column'
 		>
 			<Navbar />
 			<div

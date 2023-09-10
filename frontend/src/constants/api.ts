@@ -3,8 +3,9 @@ const APIS = {
 	SIGN_IN: 'account/account/sign_in',
 	SIGN_UP: 'account/account/sign_up',
 	SEND_MESSAGE: 'chat/messsage',
-	GET_GROUPS: 'groups',
-	GET_MESSAGES: 'chat/conversation'
+	GET_GROUPS: 'chat/conversation',
+	CREAT_GROUP: 'chat/conversation',
+	GET_MESSAGES: 'chat/conversation',
 }
 
 export default APIS

@@ -6,9 +6,9 @@ export default interface Message {
     // "from_member": "string",
     from_member: string,
     // "created_at": "2023-09-10T05:06:58.170Z",
-    created_at: Date,
+    created_at: string,
     // "updated_at": "2023-09-10T05:06:58.170Z",
-    updated_at: Date,
+    updated_at: string,
     // "is_unsent": true,
     is_unsent: boolean
     // "is_removed": true,
