@@ -25,11 +25,5 @@ class MessageViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         message = serializer.create()
-        pusher_client.trigger(request.data['conversation'], 'message', {
-            'username': message.from_member.nick_name,
-            'time': str(message.created_at),
-            'message': message.content,
-            'is_removed': message.is_removed,
-        })
 
         return Response([])

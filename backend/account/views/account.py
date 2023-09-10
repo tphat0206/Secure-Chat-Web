@@ -32,8 +32,8 @@ class AccountViewSet(GenericViewSet):
     def sign_up(self, request: Request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        secret = serializer.save()
+        return Response({'success': secret}, status=status.HTTP_201_CREATED)
 
     @action(methods=['POST'], detail=False)
     def sign_in(self, request: Request):
@@ -43,4 +43,5 @@ class AccountViewSet(GenericViewSet):
         return Response({
             'account': AccountSerializer(user).data,
             'token': token,
+            # 'public': public,
         })

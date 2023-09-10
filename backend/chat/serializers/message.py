@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from chat.models import Message, Conversation, GroupMember
-
+from chat.pusher import pusher_client
 
 class MessageSerializer(serializers.ModelSerializer):
     is_owned = serializers.SerializerMethodField()
@@ -36,5 +36,14 @@ class SendMessageSerializer(serializers.Serializer):
         message = Message.objects.create(content=self.validated_data['content'],
                                          conversation_id=self.validated_data['conversation'],
                                          from_member=from_member)
+
+        for member in GroupMember.objects.filter(conversation_id=self.validated_data['conversation']):
+            pusher_client.trigger(member.account.username, 'message', {
+                'username': message.from_member.nick_name,
+                'time': str(message.created_at),
+                'message': message.content,
+                'is_removed': message.is_removed,
+                'conversation': self.validated_data['conversation']
+            })
         return message
 

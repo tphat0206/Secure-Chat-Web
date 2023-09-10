@@ -1,9 +1,12 @@
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+import binascii
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import AuthenticationFailed
 
-from account.models import Account
+from account.models import Account, UserKey
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -22,11 +25,19 @@ class SignUpSerializer(serializers.Serializer):
         return username
 
     def save(self, **kwargs):
-        Account.objects.create_user(
+        account = Account.objects.create_user(
             self.validated_data.get('username'),
             None,
             self.validated_data.get('password')
         )
+        keyPair = RSA.generate(2048)
+
+        pubKey = keyPair.publickey()
+        pubKeyPEM = pubKey.exportKey('PEM', pkcs=8)
+
+        privKeyPEM = keyPair.exportKey('PEM', pkcs=8)
+        userkey = UserKey.objects.create(account=account, public=pubKeyPEM.decode('utf-8'), secret=privKeyPEM.decode('utf-8'))
+        return privKeyPEM.decode('utf-8')
 
 
 class SignInSerializer(serializers.Serializer):
@@ -45,4 +56,10 @@ class SignInSerializer(serializers.Serializer):
             raise AuthenticationFailed
 
         token, created = Token.objects.get_or_create(user=user)
+        # public = UserKey.objects.filter(account=user)[0].public
+        # print(bytes(public, 'ascii'))
+        # encryptor = PKCS1_OAEP.new(RSA.importKey(public))
+        # token_encrypted = encryptor.encrypt(bytes(token.key, 'ascii'))
+
         return user, token.key
+        # return user, binascii.hexlify(token_encrypted).decode('utf-8'), public
