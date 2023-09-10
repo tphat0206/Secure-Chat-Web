@@ -19,6 +19,7 @@ class ConversationSerializer(serializers.ModelSerializer):
 
 
 class BaseConversationSerializer(serializers.Serializer):
+    conversation_uuid = serializers.CharField()
     from_member_name = serializers.CharField()
     name = serializers.CharField()
     created_at = serializers.DateTimeField()
