@@ -2,7 +2,7 @@ import Colors from "../../constants/color";
 import { getFirstLetter } from "./helpers";
 
 export default function ChatMessage({message}: any) {
-  const background = (message.is_owned) ? '#fff' :  Colors.BabyBlue ;
+  const background = (message.is_owned) ? Colors.LightGrey :  Colors.BlueGrotto ;
   const border = (message.is_owned) ? 'none' : '1px solid rgba(0, 0, 0, 0.1)';
   const color = (message.is_owned) ? '#000' : '#fff';
   const justifyContent = (message.is_owned) ? 'end' : 'start';
@@ -32,7 +32,7 @@ export default function ChatMessage({message}: any) {
           {/* sender name and message content*/}
           <div
           className="d-flex flex-column"
-          style={{maxWidth: '300px'}}
+          style={{maxWidth: '70%'}}
           >
             {/* sender nickname */}
           <div
@@ -57,9 +57,6 @@ export default function ChatMessage({message}: any) {
 
           {/* message time */}
 
-
-          {message.sender}
-          {message.time}
 
 
         </div>

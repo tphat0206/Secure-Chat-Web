@@ -6,6 +6,7 @@ const Colors = {
     BlueGreen: '#75E6DA',
     BlueGrotto: '#189AB4',
     BlurBabyBlue: '#D4F1F4',
+    LightGrey: '#EEEEEE'
 }
 
 export default Colors
