@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'account',
     'chat',
     'rest_framework.authtoken',
-
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 ]
+
+
 REST_FRAMEWORK = {
     # YOUR SETTINGS
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
@@ -143,3 +146,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.Account'
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'APIs',
+    'DESCRIPTION': 'APIs',
+    'VERSION': '1.0.0',
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+}

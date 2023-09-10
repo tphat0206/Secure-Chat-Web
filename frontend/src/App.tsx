@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from './redux/store'
 import { setToken, setAccount, removeToken } from './redux/user/slice'
 import { ConversationPage, HomePage, NotFoundPage, SignInPage, SignUpPage } from './pages'
 import UserPage from './pages/UserPage'
-import BoxChat from './components/conversation/BoxChat'
+import BoxChat from './components/conversation/ChatBox'
 
 function AuthenticatedApp() {
 	return (
