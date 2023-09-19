@@ -27,7 +27,5 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Build React App
         run: cd frontend && npm install && npm run build
-      - name: Show folder
-        run: aws s3 ls s3://web-fe/
       - name: Deploy app build to S3 bucket
-        run: aws s3 sync ./build/ s3://web-fe/ --delete
+        run: aws s3 sync ./dist/ s3://web-fe/ --delete
