@@ -1,24 +1,20 @@
-import { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
-import APIS from '../../constants/api'
-import client from '../../client/axios'
 
-export default function Input({setSearchText, onSubmit}:any) {
+export default function Input({button ,placeholder, setValue, onSubmit}:any) {
 	return (
 		<Form
 			onSubmit={onSubmit}
-			className="w-100 d-flex flex-row"
+			className="h-100 w-100 d-flex flex-row"
 		>
 			<Form.Control
 				onChange={(e) => {
-					setSearchText(e.target.value)
+					setValue(e.target.value)
 				}}
 				type="text"
-				placeholder="Enter name of conversation"
-				aria-label="Search"
+				placeholder={placeholder}
+				aria-label="Input"
 			/>
-			<Button type='submit'>OK</Button>
+			<Button type='submit'>{button}</Button>
 		</Form>
 	)
 }

@@ -9,13 +9,14 @@ export default function ChatInput({ messages, setMessages }: any) {
   const { conversation_id } = useParams();
 
   const sendMessage = (values: any) => {
-      // .post(APIS.SEND_MESSAGE, {
-      //   content: values.message,
-      //   conversation: conversation_id,
-      // })
-      // .then((response) => {
+    client
+      .post(APIS.SEND_MESSAGE, {
+        content: values.message,
+        conversation: conversation_id,
+      })
+      .then((response) => {
         const new_message: Message = {
-          uuid: "",
+          uuid: response.data.uuid,
           is_owned: true,
           from_member: "string",
           is_unsent: false,
@@ -23,10 +24,11 @@ export default function ChatInput({ messages, setMessages }: any) {
           is_system_message: false,
           content: values.message,
           conversation: "string",
-          created_at: '',
-          updated_at:''
+          created_at: "",
+          updated_at: "",
         };
-        setMessages([...messages, new_message])
+        setMessages([...messages, new_message]);
+      });
   };
 
   return (
