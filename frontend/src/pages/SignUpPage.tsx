@@ -9,7 +9,7 @@ export default function SignUpPage() {
     <div className="px-5 vh-100" style={{ backgroundColor: Colors.DarkBlue }}>
       <Row className="mx-5 h-100 w-100 align-items-center">
         <Col className="d-none d-lg-block col-lg-6">
-          <Image src="public/home/signup.jpeg" className="w-100 m-5" />
+          <Image src="signup.jpeg" className="w-100 m-5" />
         </Col>
         <Col className="d-flex flex-column align-items-center justify-content-center text-center">
           <div
@@ -21,7 +21,7 @@ export default function SignUpPage() {
             }}
           >
             <div className="items-center my-5">
-              <img className="w-50" src="public/logo2.svg" />
+              <img className="w-50" src="logo2.svg" />
             </div>
             <h1 className="text-3xl mb-4">SIGN UP</h1>
             <div className="flex flex-row">

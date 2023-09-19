@@ -21,7 +21,7 @@ export default function Navbar() {
 				<Row className='h-100' style={{ width: '100%' }}>
 					<Col className='h-100' style={{ display: 'flex', alignItems: 'center' }}>
 						<NB.Brand className='h-100' style={{ color: 'white' }} href="/">
-							<img src='/public/logo2.svg' className='h-100'></img>
+							<img src='logo2.svg' className='h-100'></img>
 						</NB.Brand>
 					</Col>
 					<Col
