@@ -9,7 +9,6 @@ import ConversationNav from "./ConversationNav";
 import Pusher from "pusher-js";
 // import Message from "../../models/message";
 import { useAppSelector } from "../../redux/store";
-import { Result } from "antd";
 
 export default function SideBar() {
     const [conversations, setConversations] = useState<Conversation[]>([]);
