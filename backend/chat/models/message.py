@@ -16,7 +16,7 @@ class Message(BaseModel):
     from_member = models.ForeignKey(GroupMember, related_name='from_messages', on_delete=models.CASCADE)
     conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE)
 
-    to_member = models.ForeignKey(GroupMember, related_name='to_messages', on_delete=models.CASCADE, null=True)
+    to_member = models.ForeignKey(GroupMember, related_name='to_messages', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.content

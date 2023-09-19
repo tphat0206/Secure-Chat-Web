@@ -27,7 +27,6 @@ class ConversationViewSet(ModelViewSet):
             case 'join_conversation':
                 return JoinConversationSerializer
 
-
     def get_queryset(self):
         user = self.request.user
         match self.action:
@@ -36,14 +35,15 @@ class ConversationViewSet(ModelViewSet):
                     Prefetch('group_members', queryset=GroupMember.objects.filter(is_left=False))).prefetch_related(
                     'messages')
             case 'list':
-                return Message.objects.all(). \
+                return Message.objects.filter(conversation__group_members__account=user). \
                     annotate(name=F('conversation__name'),
                              invite_code=F('conversation__invite_code'),
                              from_member_name=F('from_member__nick_name'),
                              is_message_owner=Case(When(from_member__account=user, then=Value(True)),
-                                                   default=Value(False)),). \
+                                                   default=Value(False)), ). \
                     values('name', 'invite_code', 'content', 'from_member_name', 'created_at', 'is_message_owner'). \
-                    distinct('invite_code').order_by('invite_code', '-created_at').annotate(conversation_uuid=F('conversation__uuid'))
+                    distinct('invite_code').order_by('invite_code', '-created_at').annotate(
+                    conversation_uuid=F('conversation__uuid'))
 
             case _:
                 return self.queryset
@@ -52,7 +52,8 @@ class ConversationViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         conversation = serializer.create()
-        return Response({"conversation_uuid":conversation.uuid,'name':conversation.name},status=status.HTTP_201_CREATED)
+        return Response({"conversation_uuid": conversation.uuid, 'name': conversation.name},
+                        status=status.HTTP_201_CREATED)
 
     @action(methods=['POST'], detail=False)
     def join_conversation(self, request):
